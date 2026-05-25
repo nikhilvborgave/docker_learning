@@ -1,0 +1,7 @@
+services:
+
+  mywebsite:
+  
+    build: .
+    ports:
+      - "80:80"
