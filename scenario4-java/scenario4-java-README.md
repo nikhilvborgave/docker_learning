@@ -1,18 +1,19 @@
 # Scenario 4 — Java Multi-stage Build
 
-A Java HTTP API built using Maven and run using a lightweight JRE — demonstrating Docker multi-stage builds.
+A Java HTTP API built using Maven and run using a lightweight JRE — demonstrating multi-stage builds.
 
 ## What This Covers
 - Multi-stage builds — build heavy, run light
-- Difference between JDK and JRE
 - Using Maven inside Docker to compile Java code
-- `COPY --from=builder` to carry only what's needed
-- Why Java versions must match between stages
+- `COPY --from=builder` to carry only the jar file
+- Java versions must match between build and run stages
+- Docker Compose for Java apps
 
 ## Project Structure
 ```
 scenario4-java/
-├── Dockerfile
+├── Dockerfile        ← see Dockerfile
+├── compose.yaml      ← see compose.yaml
 ├── pom.xml
 └── src/
     └── main/
@@ -53,6 +54,10 @@ Stage 2 must also run Java 17 → if Java 11, crash! (recognizes only up to 55.0
 ## How to Run
 
 ```bash
+# Using Compose
+docker compose up -d
+
+# Manual
 docker build -t scenario4-java .
 docker run -d -p 8080:8080 scenario4-java
 ```

@@ -8,13 +8,15 @@ Each scenario covers a different technology and introduces new Docker concepts s
 | Scenario | Technology | Concepts Covered |
 |---|---|---|
 | [Scenario 0 - Apache](./scenario0-apache/) | Ubuntu + Apache | Base images, ADD, VOLUME, tar extraction |
-| [Scenario 1 - Nginx](./scenario1-nginx/) | Nginx | Static file serving, COPY, EXPOSE |
-| [Scenario 2 - Node.js](./scenario2-node/) | Node.js + Express | Layer caching, CMD, package.json |
-| [Scenario 3 - Flask](./scenario3-flask/) | Python + Flask | ENV variables, .dockerignore, --env-file |
-| [Scenario 4 - Java](./scenario4-java/) | Java + Maven | Multi-stage builds, JDK vs JRE |
+| [Scenario 1 - Nginx](./scenario1-nginx/) | Nginx | Static file serving, COPY, EXPOSE, Compose |
+| [Scenario 2 - Node.js](./scenario2-node/) | Node.js + Express | Layer caching, CMD, package.json, Compose |
+| [Scenario 3 - Flask](./scenario3-flask/) | Python + Flask | ENV variables, .dockerignore, env_file, Compose |
+| [Scenario 4 - Java](./scenario4-java/) | Java + Maven | Multi-stage builds, JDK vs JRE, Compose |
+| [Production App](./prod-app/) | Nginx + Node + PostgreSQL + Redis | 3-tier architecture, reverse proxy, networking |
 
-## Concepts Learned
+## Concepts Covered
 
+**Dockerfile**
 - Writing Dockerfiles from scratch
 - `COPY` vs `ADD` — when to use which
 - `CMD` vs `ENTRYPOINT` — replaceable vs locked
@@ -25,22 +27,29 @@ Each scenario covers a different technology and introduces new Docker concepts s
 - `EXPOSE` vs `-p` — documenting vs actually publishing ports
 - Debugging containers with `docker logs`
 - Docker networking basics
+- `.dockerignore`
+
+
+**Docker Compose**
+- `build` vs `image`
+- `ports` vs `expose`
+- `env_file` vs `environment`
+- `depends_on`
+- Named volumes
+- Custom networks
 
 ## How to Run Any Scenario
 
 ```bash
-# Clone the repo
 git clone https://github.com/nikhilvborgave/docker_learning.git
-cd docker_learning
+cd docker_learning/<scenario-folder>
 
-# Go to any scenario
-cd scenario1-nginx
+# Using Compose
+docker compose up -d
 
-# Build the image
-docker build -t scenario1 .
-
-# Run the container
-docker run -d -p 80:80 scenario1
+# Manual
+docker build -t myimage .
+docker run -d -p <port>:<port> myimage
 ```
 
 ## Author

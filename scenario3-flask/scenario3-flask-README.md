@@ -7,12 +7,14 @@ A Flask REST API that reads secrets from environment variables, running inside a
 - `pip install -r requirements.txt` for dependencies
 - Keeping secrets OUT of the image using `.dockerignore`
 - Passing environment variables at runtime with `--env-file`
+- `env_file` in Docker Compose for secret management
 - `.dockerignore` to exclude `.env`, `__pycache__`, `.pyc` files
 
 ## Project Structure
 ```
 scenario3-flask/
-├── Dockerfile
+├── Dockerfile        ← see Dockerfile
+├── compose.yaml      ← see compose.yaml
 ├── requirements.txt
 ├── app.py
 ├── .dockerignore
@@ -41,6 +43,10 @@ COPY app.py /app                       # only this rebuilds on code change
 ## How to Run
 
 ```bash
+# Using Compose
+docker compose up -d
+
+# Manual
 docker build -t scenario3-flask .
 docker run -d -p 5000:5000 --env-file .env scenario3-flask
 ```
@@ -54,7 +60,7 @@ docker run -d -p 5000:5000 --env-file .env scenario3-flask
 | `GET /secret` | Confirms if API_KEY was loaded |
 
 ```bash
-curl http://localhost:5000
-curl http://localhost:5000/health
-curl http://localhost:5000/secret
+curl http://localhost:8080
+curl http://localhost:8080/health
+curl http://localhost:8080/secret
 ```

@@ -1,0 +1,49 @@
+services:
+  nginx:
+    build: ./nginx
+    ports:
+      - "80:80"
+    networks:
+      - appnet
+
+  backend:
+    build: ./backend
+    depends_on:
+      - database
+      - redis
+    environment:
+      - DB_HOST=database
+      - DB_PORT=5432
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    env_file:
+      - .env
+    networks:
+      - appnet
+    expose:
+      - "3000"
+
+  redis:
+    image: redis:alpine
+    networks:
+      - appnet
+    expose:
+      - "6379"
+
+  database:
+    image: postgres:15
+    env_file:
+      - .env
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - appnet
+    expose:
+      - "5432"
+
+networks:
+  appnet:
+    driver: bridge
+
+volumes:
+  pgdata:

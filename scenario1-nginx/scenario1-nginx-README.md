@@ -8,11 +8,13 @@ A simple HTML/CSS website served using Nginx inside a Docker container.
 - Difference between `COPY` and `ADD`
 - `EXPOSE` to document the port
 - Nginx's default serving path `/usr/share/nginx/html`
+- Docker Compose for single container
 
 ## Project Structure
 ```
 scenario1-nginx/
-├── Dockerfile
+├── Dockerfile        ← see Dockerfile
+├── compose.yaml      ← see compose.yaml
 ├── index.html
 └── style.css
 ```
@@ -34,6 +36,10 @@ Alpine is a minimal Linux distro. Much smaller image size — better for product
 ## How to Run
 
 ```bash
+# Using Compose
+docker compose up -d
+
+# Manual
 docker build -t scenario1-nginx .
 docker run -d -p 80:80 scenario1-nginx
 ```

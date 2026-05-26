@@ -8,11 +8,13 @@ A simple Express REST API running inside a Docker container.
 - `RUN npm install` inside the container
 - `CMD` in JSON array form
 - Difference between `CMD` and `ENTRYPOINT`
+- Docker Compose with custom host port mapping
 
 ## Project Structure
 ```
 scenario2-node/
-├── Dockerfile
+├── Dockerfile        ← see Dockerfile
+├── compose.yaml      ← see compose.yaml
 ├── package.json
 └── server.js
 ```
@@ -36,6 +38,10 @@ CMD ["node", "server.js"]     # JSON form — node runs directly, gets stop sign
 ## How to Run
 
 ```bash
+# Using Compose
+docker compose up -d
+
+# Manual
 docker build -t scenario2-node .
 docker run -d -p 3000:3000 scenario2-node
 ```
@@ -48,6 +54,6 @@ docker run -d -p 3000:3000 scenario2-node
 | `GET /health` | Returns health status |
 
 ```bash
-curl http://localhost:3000
-curl http://localhost:3000/health
+curl http://localhost:8080
+curl http://localhost:8080/health
 ```
